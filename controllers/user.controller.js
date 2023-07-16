@@ -1,15 +1,17 @@
 const User =require('../models/user.model')
 const bcrypt =require('bcryptjs')
 
-exports.createNewUser = async(req,res)=>{
-    const {username, email,password} = req.body
 
+exports.createNewUser = async(req,res)=>{
+
+    const {username, email,password} = req.body
     if(!username ||!email ||!password ) return res.status(400).json({'error':'All fields required'})
     const duplicate = await User.findOne({email}).exec()
     if(duplicate) return res.status(409).json({'error':'Email already registered'})
+    
     try {
         const hashPassword = await bcrypt.hashSync(password)
-        const user = await User.create({
+         await User.create({
             username,
             email,
             password:hashPassword
@@ -18,12 +20,15 @@ exports.createNewUser = async(req,res)=>{
         res.status(201).json({'message':'New User created'})
         
     } catch (error) {
+
         res.status(400).json(error.message)
     }
 }
 
+///////////////////////////////////////////////
 
 exports.logoutUser = async(req,res)=>{
+    
     const cookies = req.cookies
     if(!cookies?.jwt) return res.sendStatus(204)
     const refreshToken = cookies.jwt

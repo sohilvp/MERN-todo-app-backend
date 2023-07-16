@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 const todoSchema = new mongoose.Schema({
   title: {
@@ -10,6 +10,6 @@ const todoSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-});
+})
 
-module.exports = mongoose.model("Todo", todoSchema);
+module.exports = mongoose.model("Todo", todoSchema)
