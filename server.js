@@ -17,7 +17,6 @@ app.use('/',require('./routes/user.routes'))
 app.use('/',require('./routes/post.routes'))
 
 
-
 mongoose
   .connect(process.env.MONGO_CONNECT_URI, {
     useUnifiedTopology: true,
